@@ -24,3 +24,12 @@ git checkout main // 기본 브랜치가 main인 경우
 git checkout -b 브랜치이름
 ex) git checkout -b apply-feedback
 ```
+---
+## 숫자야구게임 기능구현
+1. 숫자생성(랜덤)
+2. 숫자입력
+3. 입력한 숫자와 생성된 숫자의 일치여부 판단
+4. 결과출력
+5. 새로운 게임시작 및 종료여부 결정
+
+
