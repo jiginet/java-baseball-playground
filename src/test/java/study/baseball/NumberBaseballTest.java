@@ -2,12 +2,25 @@ package study.baseball;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.io.ByteArrayInputStream;
 import java.util.Random;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 
 class NumberBaseballTest {
+
+    private NumberBaseball numberBaseball;
+
+    @BeforeEach
+    void setUp() {
+        System.setIn(new ByteArrayInputStream("1\n".getBytes()));
+        numberBaseball = new NumberBaseball();
+    }
 
     @Test
     void random() {
@@ -23,7 +36,6 @@ class NumberBaseballTest {
     @DisplayName("숨겨진 숫자가 초기화될 때마다 달라진다.")
     void initialHiddenNumbers() {
         // given
-        NumberBaseball numberBaseball = new NumberBaseball();
         int[] hiddenNumbers1 = numberBaseball.getHiddenNumbers().clone();
 
         // when
@@ -37,7 +49,6 @@ class NumberBaseballTest {
     @Test
     void getUniqueNumber() {
         // given
-        NumberBaseball numberBaseball = new NumberBaseball();
         final int[] hiddenNumbers = numberBaseball.getHiddenNumbers();
 
         // when-then
@@ -53,7 +64,6 @@ class NumberBaseballTest {
     @Test
     void isExistsNumber() {
         // given
-        NumberBaseball numberBaseball = new NumberBaseball();
         final int[] hiddenNumbers = numberBaseball.getHiddenNumbers();
 
         // when
@@ -71,13 +81,85 @@ class NumberBaseballTest {
 
     @Test
     void getRandomNumber() {
-        // given
-        NumberBaseball numberBaseball = new NumberBaseball();
-
-        // when-then
         for (int i = 0; i < 100; i++) {
             int actual = numberBaseball.getRandomNumber();
             assertThat(actual).isBetween(1, 9);
         }
+    }
+
+    @Test
+    void isContinue() {
+        // given
+        GameResult fourBall = new GameResult(0, 0);
+        GameResult oneStrike = new GameResult(1, 0);
+        GameResult threeStrike = new GameResult(3, 0);
+
+        // when
+        boolean isTrue1 = numberBaseball.isContinue(fourBall);
+        boolean isTrue2 = numberBaseball.isContinue(oneStrike);
+        boolean isTrue3 = numberBaseball.isContinue(threeStrike);
+
+        // then
+        assertThat(isTrue1).isTrue();
+        assertThat(isTrue2).isTrue();
+        assertThat(isTrue3).isTrue();
+    }
+
+    @Test
+    void calculate() {
+        // given
+        final String input = "123";
+
+        // when
+        GameResult result = numberBaseball.calculate(input);
+
+        // then
+        assertThat(result).isNotNull();
+
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"123", "456", "789"})
+    void countStrike(String input) {
+        // given
+        // when
+        int result = numberBaseball.countStrike(input);
+
+        // then
+        assertThat(result).isBetween(0, 3);
+    }
+
+    @ParameterizedTest
+    @CsvSource({"1,0", "2,0", "3,0", "1,1", "1,2", "3,2"})
+    void isStrike(char input, int position) {
+        // given
+        // when
+        int result = numberBaseball.isStrike(input, position);
+
+        // then
+        assertThat(result).isIn(0, 1);
+
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"123", "456", "789"})
+    void countBall(String input) {
+        // given
+        // when
+        int result = numberBaseball.countBall(input);
+
+        // then
+        assertThat(result).isBetween(0, 3);
+    }
+
+    @ParameterizedTest
+    @CsvSource({"1,0", "2,0", "3,0", "1,1", "1,2", "3,2"})
+    void isBall(char input, int position) {
+        // given
+        // when
+        int result = numberBaseball.isStrike(input, position);
+
+        // then
+        assertThat(result).isIn(0, 1);
     }
 }
