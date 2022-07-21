@@ -61,13 +61,4 @@ public class Balls {
         return result;
     }
 
-    private void resultReport(BallState ballState) {
-        if (ballState.isStrike()) {
-            strikeCount++;
-        }
-        if (ballState.isBall()) {
-            ballCount++;
-        }
-    }
-
 }

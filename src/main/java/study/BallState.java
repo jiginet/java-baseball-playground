@@ -3,7 +3,6 @@ package study;
 public enum BallState {
     STRIKE, BALL, NOTHING;
 
-
     public boolean isStrike() {
         return this == STRIKE;
     }
