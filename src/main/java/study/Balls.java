@@ -1,18 +1,37 @@
 package study;
 
+import static study.Ball.MAX_BALL_NO;
+import static study.Ball.MIN_BALL_NO;
+
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
+import java.util.Random;
+import java.util.Set;
 
 public class Balls {
 
     public static final int REQUIRED_BALL_SIZE = 3;
     private final List<Ball> balls;
-    private int strikeCount;
-    private int ballCount;
 
     public Balls(List<Integer> ballNos) {
         validate(ballNos);
         this.balls = mapTo(ballNos);
+    }
+
+    public static Balls createRandom() {
+        Set<Integer> randomNumbers = new HashSet<>();
+        while(randomNumbers.size() < REQUIRED_BALL_SIZE) {
+            randomNumbers.add(getRandomNo());
+        }
+        return new Balls(new ArrayList<>(randomNumbers));
+    }
+
+    private static int getRandomNo() {
+        Random random = new Random();
+        return random.nextInt(MAX_BALL_NO) + MIN_BALL_NO;
     }
 
     private List<Ball> mapTo(final List<Integer> ballNos) {
@@ -51,7 +70,6 @@ public class Balls {
 
     public PlayResult play(final List<Integer> playerBallNos) {
         Balls playerBalls = new Balls(playerBallNos);
-
         PlayResult result = new PlayResult();
 
         for (Ball answerBall : balls) {
@@ -59,6 +77,27 @@ public class Balls {
             result.report(state);
         }
         return result;
+    }
+
+    public boolean hasBall(final Ball other) {
+        return balls.stream()
+            .anyMatch(ball -> ball.equals(other));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Balls otherBalls = (Balls) o;
+        long count = balls.stream()
+            .filter(ball -> otherBalls.hasBall(ball))
+            .count();
+
+        return count == balls.size();
     }
 
 }

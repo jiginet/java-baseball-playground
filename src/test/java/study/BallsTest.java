@@ -119,12 +119,21 @@ public class BallsTest {
     }
 
     @Test
-    @DisplayName("3개의 볼로 이뤄져 있다.")
+    @DisplayName("Balls 는 3개의 Ball 로 이뤄져 있다.")
     void validate2() {
         assertThat(new Balls(Arrays.asList(1, 2, 3))).isNotNull();
 
         assertThatThrownBy(() -> new Balls(null)).isInstanceOf(IllegalArgumentException.class);
         assertThatThrownBy(() -> new Balls(Arrays.asList(1, 2))).isInstanceOf(IllegalArgumentException.class);
         assertThatThrownBy(() -> new Balls(Arrays.asList(1, 2, 3, 4))).isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    @DisplayName("메서드를 호출할 때마다 다른 Ball 를 가진 객체를 생성한다.")
+    void createRandomBalls() {
+        Balls first = Balls.createRandom();
+        Balls second = Balls.createRandom();
+
+        assertThat(first).isNotEqualTo(second);
     }
 }
