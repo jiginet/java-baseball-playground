@@ -2,7 +2,7 @@ package study;
 
 public class PlayResult {
 
-    public static final int FINISH_GAME_STRIKE_COUNT = 3;
+    public static final int END_GAME_STRIKE_COUNT = 3;
     private int strikeCount;
     private int ballCount;
 
@@ -24,6 +24,6 @@ public class PlayResult {
     }
 
     public boolean isGameEnd() {
-        return strikeCount == FINISH_GAME_STRIKE_COUNT;
+        return strikeCount == END_GAME_STRIKE_COUNT;
     }
 }

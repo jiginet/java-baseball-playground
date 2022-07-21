@@ -11,7 +11,7 @@ public class Ball {
 
     public Ball(int ballNo, int position) {
         if (ballNo < MIN_BALL_NO || ballNo > MAX_BALL_NO) {
-            throw new IllegalArgumentException("볼넘버는 1 ~ 9까지의 숫자만 가능합니다.");
+            throw new IllegalArgumentException("볼 넘버는 1 ~ 9까지의 숫자만 가능합니다.");
         }
         if (position < MIN_POSITION || position > MAX_POSITION) {
             throw new IllegalArgumentException("볼 포지션은 1 ~ 3까지의 숫자만 가능합니다.");
