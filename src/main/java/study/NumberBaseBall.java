@@ -6,7 +6,7 @@ public class NumberBaseBall {
 
     public static final int GAME_CONTINUE = 1;
     private final InputView inputNumber = new InputView(3, "숫자를 입력해 주세요 :");
-    private final InputView inputMenu = new InputView(1, "계속은 1번, 중단은 2번 :");
+    private final InputView inputMenu = new InputView(1, "계속은 1번, 중단은 그 외 :");
 
     public void play() {
         Balls answerBalls = Balls.createRandom();
