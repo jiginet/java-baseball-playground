@@ -26,4 +26,12 @@ public class PlayResult {
     public boolean isGameEnd() {
         return strikeCount == END_GAME_STRIKE_COUNT;
     }
+
+    public boolean hasStrike() {
+        return strikeCount > 0;
+    }
+
+    public boolean hasBall() {
+        return ballCount > 0;
+    }
 }

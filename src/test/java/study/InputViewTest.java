@@ -15,7 +15,7 @@ public class InputViewTest {
     void hasOnlyUniqueNumbers() {
         // given
         System.setIn(new ByteArrayInputStream("123\n".getBytes()));
-        InputView view = new InputView();
+        InputView view = new InputView(3, "test : ");
 
         // when
         List<Integer> numbers = view.read();
@@ -27,11 +27,11 @@ public class InputViewTest {
     }
 
     @Test
-    @DisplayName("사이즈가 " + REQUIRED_BALL_SIZE + "인 숫자목록을 반환한다.")
+    @DisplayName("사이즈가 3인 숫자목록을 반환한다.")
     void validateSize() {
         // given
         System.setIn(new ByteArrayInputStream("123\n".getBytes()));
-        InputView view = new InputView();
+        InputView view = new InputView(3, "test :");
 
         // when
         List<Integer> numbers = view.read();

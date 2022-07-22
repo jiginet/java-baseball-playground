@@ -1,13 +1,19 @@
 package study;
 
-import static study.Balls.REQUIRED_BALL_SIZE;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class InputView {
+
+    private final int inputSize;
+    private final String message;
+
+    public InputView(int inputSize, String message) {
+        this.inputSize = inputSize;
+        this.message = message;
+    }
 
     public List<Integer> read() {
         String input = readNumber();
@@ -20,7 +26,7 @@ public class InputView {
         Scanner scanner = new Scanner(System.in);
         String input;
         do {
-            System.out.print(REQUIRED_BALL_SIZE + "자리 숫자를 입력해 주세요 : ");
+            System.out.print(message);
             input = scanner.nextLine();
         } while (!isValidNumber(input));
 
@@ -28,10 +34,10 @@ public class InputView {
     }
 
     private boolean isValidNumber(final String input) {
-        if (input.length() != REQUIRED_BALL_SIZE) {
+        if (input.length() != inputSize) {
             return false;
         }
-        if (!input.matches("^[1-9]{" + REQUIRED_BALL_SIZE + "}$")) {
+        if (!input.matches("^[1-9]{" + inputSize + "}$")) {
             return false;
         }
         return true;
